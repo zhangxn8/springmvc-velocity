@@ -1,0 +1,34 @@
+#parse('common/common.vm')
+<!DOCTYPE html>
+<html>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+   <head> <title>加密用法</title> </head>
+   <body>
+        <div>加密测试</div>
+        <script type="text/JavaScript" src="$path/js/jquery-1.11.1.min.js"></script>
+        <script type="text/JavaScript" src="$path/js/base64.js" ></script>   
+        <script type="text/JavaScript" src="$path/js/md5.js" ></script>  
+        <script type="text/JavaScript" src="$path/js/sha1.js" ></script>  
+        <script type="text/javascript">
+        //加密
+        var b = new Base64();  
+        var str = b.encode("zxn ");  
+        alert("base64 encode:" + str);  
+　　　　 //解密
+        str = b.decode(str);  
+        alert("base64 decode:" + str);  
+        
+       //md5进行加密的用法 
+           var hash = hex_md5("123dafd");
+           alert("md5加密 ： "+hash);
+           var hash2=hex_md5(hash);
+           alert("hash2:"+hash2);
+           var str=str_md5(hash);
+           alert("md5解密 ： "+str);
+           
+       //使用sha 进行加密解密的方法 
+           var sha = hex_sha1('mima123465');
+           alert("sha加密用法： "+sha)   
+        </script>
+   </body>
+</html>

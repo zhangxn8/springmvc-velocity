@@ -1,0 +1,93 @@
+#parse('common/common.vm') 
+<!DOCTYPE html>
+<html>
+   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+   <head><title>Sample velocity page</title></head>
+      <body bgcolor="#ffffff">
+           <center>
+               <h2>Hello My First Velocity</h2>
+                  <table width="100" cellpadding="5" cellspacing="1" bordercolor="#333333">
+                     <tr><td bgcolor="#eeeeee" align="center">name list</td></tr>
+                       #foreach ($name in $theList)
+                          <tr><td bgcolor="#6666FF" align="center">$name</td></tr>
+                       #end
+                  </table>
+            </center>
+            
+            <table class="table table-responsive display dataTable" id="table" role="grid" width="100%">
+                <thead>
+						<tr>
+							<th>列3</th>
+							<th>列4</th>
+							<th>列5</th>
+							<th>列6</th>
+							<th>列5</th>
+							<th>列6</th>
+						</tr>
+					</thead>
+           </table>
+               <script type="text/JavaScript" src="$path/js/jquery-1.11.1.min.js"></script>
+               <script src="$path/js/jquery-migrate-1.2.1.min.js"></script><!--兼容jquery1.9以上与之前版本的过度插件-->
+               <script src="$path/js/jquery-ui-1.10.3.min.js"></script>
+               <script src="$path/js/jquery.cookies.js"></script><!--存储cookie-->
+               <script type="text/JavaScript" src="$path/js/jquery.datatables.min.js"></script>
+               <script type="text/JavaScript" src="$path/js/dataTables.ext.js" ></script>               
+               
+               
+           <script> 
+            $(document).ready(function(){
+             var table_data={
+                "col1":"1",
+                "col2":"2",
+                "col3":"3",
+                "col4":"4",
+                "col5":"5",
+                "col6":"6",
+            };
+            $.ajax({
+            	     type: "post",
+	                 url: "$path/hello",
+	                 data: {"para":1},
+	           });
+           
+            $("#table").DataTable({
+              "processing": true,
+              "ajax":{
+                     type: "post",
+	                 url: "$path/hello",
+	                 "data": {col1:"1",col2:"2",col3:"3",col4:"3",col4:"4",col5:"5","col6":"8"},
+	                 "dataSrc":function(data){
+	                    
+	                   if (table_data != undefined){
+                               table_data = table_data.concat(data);
+                           }else{
+                               table_data = data;
+                           }
+                       
+	                    return table_data;
+	                },
+	                 success:function(data){
+	                    console.log(data);
+	                    alert("成功");
+	                 },
+	                 error:function(XMLHttpRequest){
+	                    alert("失败");
+	                 }
+              },    
+               "columnDefs": [
+                ],          
+               "columns": [
+							{ data:"col1"},
+							{ data:"col2"},
+							{ data:"col3"},
+							{ data:"col4"},
+							{ data:"col5"},
+							{ data:"col6"},
+                 ],
+                 "aaData":[{col1:"1",col2:"2",col3:"3",col4:"3",col4:"4",col5:"5","col6":"8"}]
+             });
+            
+            })
+           </script>
+      </body>
+</html>
